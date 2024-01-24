@@ -1,0 +1,70 @@
+**Project Brief: Exchange Rate Converter**
+
+**Objective:**
+Design and develop a web-based exchange rate converter application that allows users to quickly and accurately convert between different currencies. This project aims to provide a practical tool for users to perform currency conversions effortlessly.
+
+**Key Features:**
+
+1. **Currency Selection:**
+   - Implement a user-friendly interface for selecting the source and target currencies from a list of commonly used currencies.
+   
+2. **Real-time Exchange Rates:**
+   - Fetch up-to-date exchange rate data from a reliable API source, ensuring accuracy in currency conversion.
+
+3. **Conversion Calculation:**
+   - Provide a simple and intuitive input field for users to enter the amount they wish to convert.
+   - Automatically update the converted amount based on the selected currencies and the latest exchange rates.
+
+
+
+4. **User Feedback:**
+   - Display clear and concise conversion results with appropriate formatting.
+   - Offer error handling for invalid inputs or network issues.
+
+5. **Responsive Design:**
+   - Ensure the application is responsive, allowing users to access and use it on various devices and screen sizes.
+
+
+
+**Technical Requirements:**
+
+- Utilize HTML, CSS, and JavaScript (or any preferred web development framework) to build the application.
+- Incorporate an external API for real-time exchange rate data (e.g., Open Exchange Rates API, Fixer API, or similar).
+- Apply appropriate error handling and validation to ensure a smooth user experience.
+- Ensure the application's code is well-structured, modular, and maintainable.
+
+**Project Deliverables:**
+
+- A functional Exchange Rate Converter application with the specified features.
+- Responsive design that provides a seamless experience on various devices.
+- Documentation detailing how the application works, including information on the API used, any third-party libraries or frameworks, and instructions for running the project locally.
+
+**Note:** The Exchange Rate Converter project offers a practical way to practice web development skills, including API integration, user interface design, and data manipulation. Learners can start with the basic features and progressively add more advanced functionality as desired.
+
+**Project Submission and Deployment:**
+
+- After completion, Follow these steps for submission and deployment:
+
+1. **Version Control:**
+   - Use Git for version control. Initialize a Git repository in your project folder.
+
+2. **GitHub Repository:**
+   - Create a GitHub repository for your project.
+   - Commit your code to the repository, and ensure it's up-to-date.
+
+3. **README.md:**
+   - Use Readme.md file provided.
+
+4. **Deployment:**
+   - Deploy your website to a hosting platform like Vercel, Netlify, or GitHub Pages.
+
+5. **Testing:**
+   - Thoroughly test your website's responsiveness and the contrast switching feature on different devices and browsers.
+
+6. **Submission:**
+   - Go to kodaschool.com and access the solution form for the challenge related to this project.
+
+7. **Submission Details:**
+   - Provide the GitHub repository link.
+   - Share the deployed website link.
+   - Attach any additional notes or comments if needed.
