@@ -7,14 +7,15 @@ import { Data, Currencies } from './types';
 import Input from './components/Input.vue';
 import Pros from './components/Pros.vue';
 import NavHeader from './components/NavHeader.vue';
+import Loader from './components/Loader.vue'
 
 import fetchCurrencies from './composables/fetchCurrencies';
 import fetchRate from './composables/fetchRate';
 
-
 const rate: Ref<number | null> = ref(null);
 const fee = ref(0);
 const currencies: Ref<Currencies> = ref(null);
+const pending: Ref< 'send' | 'get' | '' > = ref('');
 
 const data: Data = reactive({
   send: 'USD',
@@ -25,6 +26,7 @@ const data: Data = reactive({
 
 provide("currencies", currencies);
 provide("data", data);
+provide("pending", pending);
 
 const route = useRoute();
 
@@ -34,24 +36,27 @@ function calculate(value: number) {
 
 watch(
   () => route.query,
-  async (newValue) => {
-    data.send = newValue.send?.toString() ?? "EUR";
-    data.get = newValue.get?.toString() ?? "USD";
+  async ({ send, get, send_amount, get_amount }) => {
+    pending.value = send_amount ? 'get' : get_amount ? 'send' : "";
+
+    data.send = send?.toString() ?? "EUR";
+    data.get = get?.toString() ?? "USD";
 
     rate.value = await fetchRate(data.send,  data.get);
     
-    if (!newValue.send_amount && !newValue.get_amount) {
+    if (!send_amount && !get_amount) {
       data.send_amount = 100;
     } else {
-      data.send_amount = +(newValue.send_amount ?? calculate(+newValue.get_amount! / rate.value));
+      data.send_amount = +(send_amount ?? calculate(+get_amount! / rate.value));
     }
     
-    data.get_amount = +(newValue.get_amount ?? calculate(+data.send_amount * rate.value));
-    console.log()
+    data.get_amount = +(get_amount ?? calculate(+data.send_amount * rate.value));
 
+    pending.value = '';
   },
   { immediate: false }
 )
+watch(() => pending, ()=>console.log('p: ', pending.value))
 
 onMounted(async () => {
   currencies.value = await fetchCurrencies();
@@ -94,5 +99,5 @@ onMounted(async () => {
       </form>
     </div>
   </main>
-
+  <Loader v-else />
 </template>

@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { Ref, computed, inject, ref, watch } from 'vue';
+import { Ref, computed, inject, ref, watch, watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { Currencies, Data } from '../types';
+import Loader from './Loader.vue';
 
 const { name } = defineProps<{
     name: string,
@@ -45,6 +46,9 @@ function onChange (name: string) {
     })
 }
 
+const currentlyPending = inject("pending") as Ref<'send' | 'get' | ''>;
+const loading = computed(() => name === currentlyPending.value);
+
 </script>
 <template>
     <label :for="`${name}-value`">
@@ -54,14 +58,17 @@ function onChange (name: string) {
         <span class="left-4 absolute">
             {{ currentCurrencySymbol }}
         </span>
-        <input
-            class="flex-1 min-w-0 p-4 pl-14 bg-transparent border-none outline-none"
-            type="text"
-            :id="`${name}-value`"
-            inputmode="decimal"
-            v-model.lazy="amount"
-            @change="onChange(name)"
-        >
+        <div class="relative flex-1 overflow-hidden rounded-lg">
+            <input
+                class="w-full min-w-0 p-4 pl-14 bg-transparent border-none outline-none"
+                type="text"
+                :id="`${name}-value`"
+                inputmode="decimal"
+                v-model.lazy="amount"
+                @change="onChange(name)"
+            >
+            <Loader v-show="loading" :size="0.75"/>
+        </div>
         <div class="relative">
             <button
                 type="button"
@@ -87,7 +94,7 @@ function onChange (name: string) {
                 >
             </button>
             <div
-                class="absolute top-full right-0 max-h-48 overflow-y-auto z-50 flex flex-col p-4 bg-dark shadow-lg shadow-[#0008] border border-gray-900 rounded-lg"
+                class="absolute top-full right-0 max-h-48 w-max overflow-y-auto z-50 flex flex-col p-4 bg-dark shadow-lg shadow-[#0008] border border-gray-900 rounded-lg"
                 :class="isDropdownOpen ? '' : 'hidden' "
                 @change="isDropdownOpen = !isDropdownOpen"
             >
